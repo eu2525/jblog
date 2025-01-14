@@ -10,7 +10,7 @@
 <Link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/jblog.css">
 </head>
 <body>
-	<div id="container">
+<div id="container">
 		<div id="header">
 			<h1>Spring 이야기</h1>
 			<ul>
@@ -63,4 +63,5 @@
 		</div>
 	</div>
 </body>
+
 </html>
