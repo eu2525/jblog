@@ -3,10 +3,17 @@
 
 <mapper namespace="blog">
 	
-	<insert id="insert" parameterType="string">
+	<insert id="insert" parameterType="map" >
 		<![CDATA[
-			insert into blog values(#{id}, ,)
+			insert into blog values(#{id}, #{title} ,#{profile})
 		]]>
 	</insert>
-
+	
+	<select id="find" parameterType="string" resultType="blogvo">
+		<![CDATA[
+		  select blog_id as blogId, title, profile
+		  from blog
+		  where blog_id = #{userId}
+		]]>
+	</select>
 </mapper>

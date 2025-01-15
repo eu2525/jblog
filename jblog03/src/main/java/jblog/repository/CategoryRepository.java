@@ -1,7 +1,12 @@
 package jblog.repository;
 
+import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
+
+import jblog.vo.CategoryVo;
 
 @Repository
 public class CategoryRepository {
@@ -10,7 +15,13 @@ public class CategoryRepository {
 	public CategoryRepository(SqlSession sqlSession) {
 		this.sqlSession = sqlSession;
 	}
+	
 	public int insert(String userId, String name, String description) {
-		return sqlSession.insert("blog.insertCategory", userId);
+		return sqlSession.insert("category.insert", Map.of("id", userId, "name", name, "description", description));
 	}
+
+	public List<CategoryVo> findByUserId(String userId) {
+		return sqlSession.selectList("category.findAll", userId);
+	}
+	
 }

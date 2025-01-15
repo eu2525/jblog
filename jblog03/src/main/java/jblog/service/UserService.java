@@ -14,7 +14,7 @@ public class UserService {
 	private BlogRepository blogRepository;
 	private CategoryRepository categoryRepository;
 	
-	public UserService(UserRepository userRepository, BlogRepository blogRepository) {
+	public UserService(UserRepository userRepository, BlogRepository blogRepository, CategoryRepository categoryRepository) {
 		this.userRepository = userRepository;
 		this.blogRepository = blogRepository;
 		this.categoryRepository = categoryRepository;
@@ -31,15 +31,17 @@ public class UserService {
 	@Transactional
 	public void join(UserVo userVo) {
 		// 유저 생성
-		int userCount = userRepository.insert(userVo);	
-		if (userCount == 0) {
-			return;
-		}
+		userRepository.insert(userVo);	
+
 		// 기본 블로그 생성
-		// int blogCount = blogRepository.insert(userVo.getId());
+		String blogTitle = userVo.getId() + " 블로그";
+		String blogProfile = "assets/images/spring-logo.jpg";
+		blogRepository.insert(userVo.getId(), blogTitle, blogProfile);
 		
 		// 기본 카테고리 생성
-		// int categoryCount = categoryRepository.insert(userVo.getId());
+		String categoryName = "기본";
+		String categoryDescription = "기본 카테고리입니다.";
+		categoryRepository.insert(userVo.getId(), categoryName, categoryDescription);
 	}
 	
 }
