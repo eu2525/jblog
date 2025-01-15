@@ -13,7 +13,6 @@
 <div id="container">
 		<div id="header">
 			<h1>${blogVo.title } </h1>
-			
 			<ul>
 				<c:choose>
 					<c:when test ="${empty authUser }">
@@ -48,7 +47,14 @@
 				</div>
 				<ul class="blog-list">
 					<c:forEach var="post" items="${postList }" >
-						<li><a href="${pageContext.request.contextPath }/${blogVo.blogId }/${post.categoryId }/${post.id}">${post.title }</a> <span>${post.regDate}</span>	</li>
+						<c:choose>
+							<c:when test="${post.title == mainPost.title }">
+								 <li><a href="${pageContext.request.contextPath }/${blogVo.blogId }/${post.categoryId }/${post.id}" style="color: red; font-weight: bold;">${post.title }</a> <span>${post.regDate}</span></li>
+							</c:when>
+							<c:otherwise>
+								<li><a href="${pageContext.request.contextPath }/${blogVo.blogId }/${post.categoryId }/${post.id}">${post.title }</a> <span>${post.regDate}</span>	</li>
+							</c:otherwise>
+						</c:choose>
 					</c:forEach>
 				</ul>
 			</div>
@@ -56,16 +62,17 @@
 
 		<div id="extra">
 			<div class="blog-logo">
-				<img src="${pageContext.request.contextPath}/${blogVo.profile }" >
+				<img src="${pageContext.request.contextPath}${blogVo.profile }" >
 			</div>
 		</div>
 
 		<div id="navigation">
 			<h2>카테고리</h2>
 			<ul>
-			<c:forEach var="category" items="${categoryList }" >
-				<li><a href="${pageContext.request.contextPath }/${category.blogId }/${category.id }">${category.name }</a></li>
-			</c:forEach>
+				<c:forEach var="category" items="${categoryList }" >
+					<li><a href="${pageContext.request.contextPath }/${category.blogId }/${category.id }">${category.name }</a></li>
+				</c:forEach>
+			</ul>
 		</div>
 		
 		<div id="footer">

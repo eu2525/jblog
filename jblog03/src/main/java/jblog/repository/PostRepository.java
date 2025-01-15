@@ -28,5 +28,13 @@ public class PostRepository {
 	public PostVo findByPostId(String userId, Long categoryId, Long postId) {
 		return sqlSession.selectOne("post.findByPostId", Map.of("id", userId, "categoryId", categoryId, "postId", postId));
 	}
+
+	public void deleteAll(Long categoryId) {
+		sqlSession.delete("post.deleteAll", categoryId);
+	}
+
+	public void insert(String categoryName, String title, String contents) {
+		sqlSession.insert("post.insert", Map.of("categoryName", categoryName, "title", title, "contents", contents));
+	}
 	
 }

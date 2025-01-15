@@ -18,4 +18,9 @@ public class BlogService {
 		return blogRepository.find(userId);
 	}
 
+
+	public void updateBlog(BlogVo blogVo) {
+		blogRepository.update(blogVo);
+	}
+
 }

@@ -23,5 +23,9 @@ public class CategoryRepository {
 	public List<CategoryVo> findByUserId(String userId) {
 		return sqlSession.selectList("category.findAll", userId);
 	}
+
+	public void delete(String userId, Long categoryId) {
+		sqlSession.delete("category.delete", Map.of("id", userId, "categoryId", categoryId));
+	}
 	
 }

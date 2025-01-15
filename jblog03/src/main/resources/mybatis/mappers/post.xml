@@ -12,6 +12,7 @@
 		           category_id as categoryId
 		    from category c join post p on c.id = p.category_id
 		    where c.blog_id = #{userId}
+		    order by regDate desc
 		]]>
 	</select>
 	
@@ -23,7 +24,8 @@
 		           reg_date as regDate,
 		           category_id as categoryId
 		    from category c join post p on c.id = p.category_id
-		    where c.blog_id = #{id} and p.category_id = #{categoryId};
+		    where c.blog_id = #{id} and p.category_id = #{categoryId}
+		    order by regDate desc;
 		]]>
 	</select>
 	
@@ -36,7 +38,31 @@
 		           reg_date as regDate,
 		           category_id as categoryId
 		    from category c join post p on c.id = p.category_id
-		    where c.blog_id = #{id} and p.category_id = #{categoryId} and p.id = #{postId};		
+		    where c.blog_id = #{id} and p.category_id = #{categoryId} and p.id = #{postId}
+		    order by regDate desc;		
 		]]>
 	</select>
+	
+	<delete id="deleteAll" parameterType="long">
+		<![CDATA[
+		delete
+		  from post
+		 where category_id=#{categoryId}
+		]]>
+	</delete>
+	
+	<insert id="insert" parameterType="map">
+	    <![CDATA[
+	        insert into post (id, title, contents, reg_date, category_id)
+	        values (
+	            null, 
+	            #{title}, 
+	            #{contents}, 
+	            NOW(), 
+	            (SELECT id 
+	             FROM category 
+	             WHERE name = #{categoryName})
+	        );
+	    ]]>
+	</insert>
 </mapper>

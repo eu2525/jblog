@@ -4,7 +4,6 @@ public class BlogVo {
 	private String blogId;
 	private String title;
 	private String profile;
-	
 
 	public String getBlogId() {
 		return blogId;
@@ -24,9 +23,11 @@ public class BlogVo {
 	public void setProfile(String profile) {
 		this.profile = profile;
 	}
+	
 	@Override
 	public String toString() {
-		return "BlogVo [id=" + blogId + ", title=" + title + ", profile=" + profile + "]";
+		return "BlogVo [blogId=" + blogId + ", title=" + title + ", profile=" + profile + "]";
 	}
+
 	
 }
