@@ -33,8 +33,8 @@ public class PostRepository {
 		sqlSession.delete("post.deleteAll", categoryId);
 	}
 
-	public void insert(String categoryName, String title, String contents) {
-		sqlSession.insert("post.insert", Map.of("categoryName", categoryName, "title", title, "contents", contents));
+	public void insert(String userId, String categoryName, String title, String contents) {
+		sqlSession.insert("post.insert", Map.of("userId", userId, "categoryName", categoryName, "title", title, "contents", contents));
 	}
 	
 }

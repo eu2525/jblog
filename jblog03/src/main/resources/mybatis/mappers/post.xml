@@ -61,7 +61,7 @@
 	            NOW(), 
 	            (SELECT id 
 	             FROM category 
-	             WHERE name = #{categoryName})
+	             WHERE name = #{categoryName } and blog_id = #{userId})
 	        );
 	    ]]>
 	</insert>

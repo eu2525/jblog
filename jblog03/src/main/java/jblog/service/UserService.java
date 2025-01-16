@@ -35,7 +35,7 @@ public class UserService {
 
 		// 기본 블로그 생성
 		String blogTitle = userVo.getId() + " 블로그";
-		String blogProfile = "assets/images/spring-logo.jpg";
+		String blogProfile = "/assets/upload-images/spring-logo.jpg";
 		blogRepository.insert(userVo.getId(), blogTitle, blogProfile);
 		
 		// 기본 카테고리 생성

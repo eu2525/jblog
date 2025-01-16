@@ -32,8 +32,8 @@ public class PostService {
 		}
 	}
 
-	public void insert(String categoryName, PostVo postVo) {
-		postRepository.insert(categoryName, postVo.getTitle(), postVo.getContents());
+	public void insert(String userId, String categoryName, PostVo postVo) {
+		postRepository.insert(userId, categoryName, postVo.getTitle(), postVo.getContents());
 	}
 
 }
