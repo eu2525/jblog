@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import jblog.security.Auth;
 import jblog.service.BlogService;
 import jblog.service.CategoryService;
 import jblog.service.FileUploadService;
@@ -71,7 +72,7 @@ public class BlogController {
 	 * Admin Basic
 	 */
 	
-	// @Auth
+	@Auth
 	@RequestMapping("/admin")
 	public String adminDefault(@PathVariable("userId") String userId, Model model) {
 		BlogVo blogVo = blogService.getBlog(userId);
@@ -79,6 +80,7 @@ public class BlogController {
 		return "blog/admin-basic";
 	}
 
+	@Auth
 	@RequestMapping("/admin/update")
 	public String adminUpdate(
 				@PathVariable("userId") String userId,
@@ -105,7 +107,7 @@ public class BlogController {
 	 * Admin Category
 	 */
 	
-	// @Auth
+	@Auth
 	@RequestMapping(value="/admin/category", method=RequestMethod.GET)
 	public String adminCategory(@PathVariable("userId") String userId, Model model) {
 		BlogVo blogVo = blogService.getBlog(userId);
@@ -115,14 +117,14 @@ public class BlogController {
 		return "blog/admin-category";
 	}
 	
-	// @Auth 
+	@Auth 
 	@RequestMapping(value="/admin/category", method=RequestMethod.POST)
 	public String adminCategory(@PathVariable("userId") String userId, CategoryVo categoryVo) {
 		categoryService.insert(userId, categoryVo);
 		return "redirect:/"+ userId +"/admin/category";
 	}
 	
-	// @Auth
+	@Auth
 	@RequestMapping("/admin/category/delete/{categoryId}")
 	public String delete(
 			@PathVariable("userId") String userId,
@@ -135,7 +137,7 @@ public class BlogController {
 	 * Admin Write
 	 */
 	
-	// @Auth
+	@Auth
 	@RequestMapping(value="/admin/write", method=RequestMethod.GET)
 	public String adminWrite(@PathVariable("userId") String userId, Model model) {
 		model.addAttribute("id", userId);
@@ -146,16 +148,14 @@ public class BlogController {
 		return "blog/admin-write";
 	}
 	
-	// @Auth
+	@Auth
 	@RequestMapping(value="/admin/write", method=RequestMethod.POST)
 	public String adminWrite(
 					@PathVariable("userId") String userId, 
 					@RequestParam(value="category", required=true, defaultValue="") String category,
 					PostVo postVo) {
-		postService.insert(category, postVo);
+		postService.insert(userId, category, postVo);
 		return "redirect:/"+ userId +"/admin/write";
 	}
-	
-	
 	
 }
