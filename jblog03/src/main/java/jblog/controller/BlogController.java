@@ -51,7 +51,9 @@ public class BlogController {
 		} else if (path1.isPresent()) {
 			categoryId = path1.get();
 		}
-				
+		
+		//Category 빨간색으로 선택하기 위해서 넣어줌!
+		model.addAttribute("categoryId", categoryId);
 		// Blog 
 		BlogVo blogVo = blogService.getBlog(userId);
 		model.addAttribute("blogVo", blogVo);
@@ -93,8 +95,6 @@ public class BlogController {
 		if(profile != null) {
 			blogVo.setProfile(profile);
 		}		
-		
-		System.out.println("Update 드가자~" + blogVo);
 		// Blog 정보 update
 		blogService.updateBlog(blogVo);
 		

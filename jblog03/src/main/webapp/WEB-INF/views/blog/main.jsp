@@ -2,6 +2,9 @@
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <%@ taglib prefix="fn" uri="jakarta.tags.functions" %>
 <%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
+<%
+	pageContext.setAttribute("newLine", "\n");
+%>
 <!doctype html>
 <html>
 <head>
@@ -34,7 +37,7 @@
 						<c:when test="${not empty mainPost }">
 							<h4>${mainPost.title }</h4>
 							<p>
-								${mainPost.contents }
+								${fn:replace(mainPost.contents, newLine, "<br>") }
 							<p>
 						</c:when>
 						<c:otherwise>
@@ -70,7 +73,14 @@
 			<h2>카테고리</h2>
 			<ul>
 				<c:forEach var="category" items="${categoryList }" >
-					<li><a href="${pageContext.request.contextPath }/${category.blogId }/${category.id }">${category.name }</a></li>
+						<c:choose>
+							<c:when test="${categoryId == category.id }">
+								<li><a href="${pageContext.request.contextPath }/${category.blogId }/${category.id }" style="color: red; font-weight: bold;">${category.name }</a></li>
+							</c:when>
+							<c:otherwise>
+								<li><a href="${pageContext.request.contextPath }/${category.blogId }/${category.id }">${category.name }</a></li>
+							</c:otherwise>
+						</c:choose>					
 				</c:forEach>
 			</ul>
 		</div>
